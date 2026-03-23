@@ -1,0 +1,103 @@
+<ion-header class="ion-no-border" translucent>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" text="Voltar" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="light">Detalhes do Produto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Loading skeleton -->
+  <ng-container *ngIf="isLoading()">
+    <ion-skeleton-text [animated]="true" style="height: 340px; margin: 0;"></ion-skeleton-text>
+    <div class="detail-content">
+      <ion-skeleton-text [animated]="true" style="width: 40%; height: 14px;"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" style="width: 90%; height: 24px; margin-top: 8px;"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" style="width: 30%; height: 32px; margin-top: 12px;"></ion-skeleton-text>
+      <ion-skeleton-text [animated]="true" style="width: 100%; height: 80px; margin-top: 20px;"></ion-skeleton-text>
+    </div>
+  </ng-container>
+
+  <!-- Not found -->
+  <div *ngIf="!isLoading() && notFound()" class="not-found">
+    <ion-icon name="alert-circle-outline"></ion-icon>
+    <h3>Produto não encontrado</h3>
+    <ion-button fill="outline" color="primary" (click)="goBack()">Voltar ao catálogo</ion-button>
+  </div>
+
+  <!-- Product detail -->
+  <ng-container *ngIf="!isLoading() && product() as p">
+
+    <!-- Hero image -->
+    <div class="hero-image">
+      <img [src]="p.imageUrl" [alt]="p.name" />
+    </div>
+
+    <div class="detail-content">
+
+      <!-- Category & brand -->
+      <div class="meta-row">
+        <ion-chip color="primary" class="cat-chip">{{ p.categoryName }}</ion-chip>
+        <span class="brand-label">{{ p.brand }}</span>
+      </div>
+
+      <!-- Name -->
+      <h1 class="product-title">{{ p.name }}</h1>
+
+      <!-- Price -->
+      <div class="price-section">
+        <span class="price">{{ p.price | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
+        <ion-badge [color]="stockColor" class="stock-badge">{{ stockLabel }}</ion-badge>
+      </div>
+
+      <ion-divider></ion-divider>
+
+      <!-- Description -->
+      <div class="description-section">
+        <h2 class="section-title">Descrição</h2>
+        <p class="description-text">{{ p.description }}</p>
+      </div>
+
+      <ion-divider></ion-divider>
+
+      <!-- Info chips -->
+      <div class="info-section">
+        <h2 class="section-title">Informações</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <ion-icon name="pricetag-outline" color="primary"></ion-icon>
+            <div>
+              <small>Marca</small>
+              <span>{{ p.brand }}</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <ion-icon name="folder-outline" color="primary"></ion-icon>
+            <div>
+              <small>Categoria</small>
+              <span>{{ p.categoryName }}</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <ion-icon name="cube-outline" color="primary"></ion-icon>
+            <div>
+              <small>Estoque</small>
+              <span>{{ p.stock }} un.</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <ion-icon name="calendar-outline" color="primary"></ion-icon>
+            <div>
+              <small>Cadastrado em</small>
+              <span>{{ p.createdAt | date:'dd/MM/yyyy':'':'pt-BR' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </ng-container>
+
+</ion-content>

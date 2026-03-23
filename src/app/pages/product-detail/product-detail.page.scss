@@ -1,0 +1,188 @@
+ion-toolbar {
+  --background: #1A1A1A;   // preto charcoal (igual header do site)
+  --color: #fff;
+  border-bottom: 2px solid var(--ts-primary);
+}
+
+ion-content {
+  --background: var(--ts-bg);
+}
+
+// ── Hero ─────────────────────────────────────────────────────────
+.hero-image {
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+  background: #f0f0f0;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  // Faixa laranja na base (estilo do site)
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--ts-primary);
+  }
+}
+
+// ── Content ───────────────────────────────────────────────────────
+.detail-content {
+  padding: 20px 20px 40px;
+  background: var(--ts-bg);
+}
+
+// ── Meta (marca + categoria) ──────────────────────────────────────
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  .cat-tag {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #fff;
+    background: #1A3A6B;
+    padding: 3px 10px;
+    border-radius: 3px;
+  }
+
+  .brand-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ts-grey);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+// ── Nome do produto ───────────────────────────────────────────────
+.product-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--ts-dark);
+  line-height: 1.2;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+// ── Preço + estoque ───────────────────────────────────────────────
+.price-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+
+  .price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--ts-primary);
+    letter-spacing: -0.5px;
+  }
+
+  // Badge estilo Tuning Shop
+  .ts-stock-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 3px;
+    color: #fff;
+
+    &.ok      { background: #2e7d32; }
+    &.low     { background: #FF5500; }
+    &.out     { background: #CC0000; }
+  }
+}
+
+// ── Seções ────────────────────────────────────────────────────────
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ts-dark);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 20px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--ts-primary);
+  display: inline-block;
+}
+
+.description-text {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--ts-grey);
+  margin: 0;
+}
+
+ion-divider { margin: 16px 0; }
+
+// ── Info grid ─────────────────────────────────────────────────────
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border-radius: 4px;
+  border-left: 3px solid var(--ts-primary);
+  padding: 10px 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+
+  ion-icon { font-size: 18px; flex-shrink: 0; color: var(--ts-primary); }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    small { font-size: 9px; color: var(--ts-grey); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+    span  { font-size: 13px; font-weight: 700; color: var(--ts-dark); }
+  }
+}
+
+// ── Not found ─────────────────────────────────────────────────────
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+  color: var(--ts-grey);
+
+  ion-icon {
+    font-size: 72px;
+    margin-bottom: 16px;
+    opacity: 0.35;
+    color: var(--ts-primary);
+  }
+
+  h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin: 0 0 20px;
+    color: var(--ts-dark);
+  }
+}

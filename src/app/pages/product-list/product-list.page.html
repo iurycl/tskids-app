@@ -1,0 +1,98 @@
+<!-- ── Header estilo Tuning Shop ─────────────────────────────────── -->
+<ion-header class="ion-no-border">
+
+  <!-- Barra superior branca com logo + searchbar (espelho do site original) -->
+  <ion-toolbar class="header-main">
+    <!-- Logo: "Ts Kids" com estilo da marca Tuning Shop -->
+    <div slot="start" class="logo-wrap">
+      <span class="logo-icon">✦</span>
+      <div class="logo-text">
+        <span class="logo-ts">TS</span><span class="logo-kids">KIDS</span>
+        <small class="logo-sub">MARKETPLACE</small>
+      </div>
+    </div>
+
+    <!-- Searchbar central -->
+    <ion-searchbar
+      slot="end"
+      placeholder="Ferrari, Porsche, Lamborghini..."
+      (ionInput)="onSearch($event)"
+      debounce="400"
+      animated
+      class="search-bar"
+    ></ion-searchbar>
+  </ion-toolbar>
+
+  <!-- Faixa de categorias com fundo laranja (estilo banner do site) -->
+  <div class="category-bar">
+    <button
+      class="cat-btn"
+      [class.active]="selectedCat === ''"
+      (click)="onCategoryChange('')"
+    >TODOS</button>
+    <button
+      *ngFor="let cat of categories()"
+      class="cat-btn"
+      [class.active]="selectedCat === cat.id"
+      (click)="onCategoryChange(cat.id)"
+    >{{ cat.name | uppercase }}</button>
+  </div>
+
+</ion-header>
+
+<!-- ── Content ──────────────────────────────────────────────────── -->
+<ion-content class="page-content">
+
+  <!-- Hero banner (estilo "Bem-vindo ao marketplace") -->
+  <div class="hero-banner">
+    <span class="hero-badge">BEM-VINDO</span>
+    <div class="hero-text">
+      <p>AO MARKETPLACE DE</p>
+      <strong>CARRINHOS ELÉTRICOS INFANTIS</strong>
+    </div>
+  </div>
+
+  <!-- Título da seção (igual ao "SELECIONE SEU CARRO") -->
+  <div class="section-header">
+    <h2>SELECIONE O CARRINHO DO SEU FILHO</h2>
+  </div>
+
+  <!-- Loading skeleton -->
+  <div *ngIf="isLoading()" class="product-grid">
+    <ion-card *ngFor="let _ of [1,2,3,4,5,6,7,8]" class="skeleton-card">
+      <ion-skeleton-text [animated]="true" style="height:190px;"></ion-skeleton-text>
+      <ion-card-header>
+        <ion-skeleton-text [animated]="true" style="width:55%;height:12px;"></ion-skeleton-text>
+        <ion-skeleton-text [animated]="true" style="width:85%;height:16px;margin-top:6px;"></ion-skeleton-text>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-skeleton-text [animated]="true" style="width:38%;height:20px;"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Empty state -->
+  <div *ngIf="!isLoading() && products().length === 0" class="empty-state">
+    <ion-icon name="search-outline" class="empty-icon"></ion-icon>
+    <h3>NENHUM PRODUTO ENCONTRADO</h3>
+    <p>Tente outro termo ou remova os filtros</p>
+  </div>
+
+  <!-- Product grid -->
+  <div *ngIf="!isLoading() && products().length > 0" class="product-grid">
+    <app-product-card
+      *ngFor="let p of products(); trackBy: trackById"
+      [product]="p"
+      (cardClick)="goToProduct($event)"
+    ></app-product-card>
+  </div>
+
+  <!-- Infinite scroll -->
+  <ion-infinite-scroll [disabled]="!hasMore()" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Carregando mais..."
+    ></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

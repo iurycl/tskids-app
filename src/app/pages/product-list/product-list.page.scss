@@ -1,0 +1,173 @@
+// ── Header principal (barra branca, espelho do Tuning Shop) ──────
+.header-main {
+  --background: #ffffff;
+  --color: var(--ts-dark);
+  border-bottom: 2px solid var(--ts-primary);
+  padding: 8px 16px;
+
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+
+    .logo-icon {
+      font-size: 22px;
+      color: var(--ts-primary);
+      line-height: 1;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+
+      .logo-ts   { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800; color: var(--ts-dark);    letter-spacing: -0.5px; }
+      .logo-kids { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800; color: var(--ts-primary); letter-spacing: -0.5px; }
+      .logo-sub  { font-size: 9px; font-weight: 600; color: var(--ts-grey); letter-spacing: 2px; text-transform: uppercase; margin-top: 1px; }
+    }
+  }
+
+  .search-bar {
+    --background: #f0f0f0;
+    --color: var(--ts-dark);
+    --placeholder-color: #999;
+    --icon-color: var(--ts-grey);
+    --border-radius: 4px;
+    max-width: 480px;
+    padding: 0;
+    font-size: 14px;
+  }
+}
+
+// ── Barra de categorias escura (menu inferior do header) ─────────
+.category-bar {
+  display: flex;
+  overflow-x: auto;
+  gap: 0;
+  background: var(--ts-dark);
+  padding: 0 8px;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+
+  .cat-btn {
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.75);
+    font-family: 'Barlow Condensed', 'Barlow', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+
+    &:hover { color: #fff; }
+
+    &.active {
+      color: var(--ts-primary);
+      border-bottom-color: var(--ts-primary);
+    }
+  }
+}
+
+// ── Hero banner (estilo "Bem-vindo" do site original) ─────────────
+.hero-banner {
+  background: linear-gradient(135deg, #1a1a1a 60%, #2d2d2d 100%);
+  padding: 28px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 100px;
+
+  .hero-badge {
+    background: var(--ts-primary);
+    color: #fff;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 6px 16px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+  }
+
+  .hero-text {
+    p      { margin: 0; color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500; letter-spacing: 0.5px; }
+    strong { display: block; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; line-height: 1.1; }
+  }
+}
+
+// ── Título da seção (igual ao "SELECIONE SEU CARRO") ─────────────
+.section-header {
+  background: #fff;
+  border-bottom: 1px solid var(--ts-border);
+  padding: 16px 20px 12px;
+
+  h2 {
+    margin: 0;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--ts-primary);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+}
+
+// ── Content ───────────────────────────────────────────────────────
+ion-content.page-content {
+  --background: var(--ts-bg);
+}
+
+// ── Product grid ──────────────────────────────────────────────────
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 12px;
+  padding: 16px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 16px;
+    padding: 20px;
+  }
+}
+
+.skeleton-card {
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 0;
+}
+
+// ── Empty state ───────────────────────────────────────────────────
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  color: var(--ts-grey);
+
+  .empty-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+    opacity: 0.35;
+  }
+
+  h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--ts-dark);
+    margin: 0 0 8px;
+    letter-spacing: 0.5px;
+  }
+
+  p { font-size: 14px; text-align: center; margin: 0; }
+}

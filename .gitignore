@@ -1,0 +1,22 @@
+## Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+## Angular / Ionic build
+www/
+dist/
+.angular/
+
+## Ambiente
+src/environments/environment.prod.ts
+
+## OS
+.DS_Store
+Thumbs.db
+
+## IDE
+.vscode/
+.idea/
+*.swp

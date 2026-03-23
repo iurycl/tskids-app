@@ -1,0 +1,55 @@
+// ── Fontes (Barlow — estilo bold/uppercase do Tuning Shop) ────────
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@700;800&display=swap');
+@import 'theme/variables';
+
+* { box-sizing: border-box; }
+
+// ── Base ──────────────────────────────────────────────────────────
+body {
+  font-family: 'Barlow', system-ui, sans-serif;
+  color: var(--ts-dark);
+  background-color: var(--ts-bg);
+}
+
+// ── Cards ─────────────────────────────────────────────────────────
+ion-card {
+  --background: #ffffff;
+  border-radius: 6px;          // Tuning Shop usa bordas menos arredondadas
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin: 0;
+}
+
+// ── Chips de categoria (estilo do site: laranja sólido quando ativo) ─
+ion-chip {
+  cursor: pointer;
+  border-radius: 4px;          // quase quadrado, como os badges do site
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+// ── Badges (igual ao "Vendedor" / "Comprador" do site original) ───
+ion-badge {
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 8px;
+}
+
+// ── Toolbar / header ──────────────────────────────────────────────
+ion-toolbar {
+  --border-width: 0;
+}
+
+// ── Searchbar ─────────────────────────────────────────────────────
+ion-searchbar {
+  --border-radius: 4px;
+}
+
+// ── Títulos uppercase (estilo do banner "SELECIONE SEU CARRO") ────
+h1, h2, h3 {
+  font-family: 'Barlow Condensed', 'Barlow', system-ui, sans-serif;
+  font-weight: 800;
+}

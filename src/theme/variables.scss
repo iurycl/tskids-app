@@ -1,0 +1,31 @@
+// ── TsKids Design Tokens (alinhado com Tuning Shop Marketplace) ──
+:root {
+  // Cores principais (extraídas do site original tuningshop.com.br)
+  --ts-primary:      #FF5500;   // laranja vibrante do site original
+  --ts-primary-dark: #D94700;   // hover / pressed
+  --ts-secondary:    #1A3A6B;   // azul escuro dos badges "Comprador"
+  --ts-bg:           #F4F4F4;   // cinza clarinho (fundo das seções do site original)
+  --ts-white:        #FFFFFF;
+  --ts-dark:         #1A1A1A;   // preto charcoal (logo e textos principais)
+  --ts-grey:         #666666;
+  --ts-border:       #E0E0E0;
+
+  // Override Ionic primary → laranja Tuning Shop
+  --ion-color-primary:            #FF5500;
+  --ion-color-primary-rgb:        255,85,0;
+  --ion-color-primary-contrast:   #ffffff;
+  --ion-color-primary-shade:      #D94700;
+  --ion-color-primary-tint:       #FF6A1A;
+
+  // Secondary → azul escuro Tuning Shop
+  --ion-color-secondary:          #1A3A6B;
+  --ion-color-secondary-rgb:      26,58,107;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-shade:    #16305a;
+  --ion-color-secondary-tint:     #1e4480;
+
+  --ion-background-color: var(--ts-bg);
+
+  // Fonte: Barlow Condensed (próxima ao bold/uppercase do site original)
+  --ion-font-family: 'Barlow', 'Barlow Condensed', system-ui, sans-serif;
+}
