@@ -10,7 +10,6 @@ dist/
 .angular/
 
 ## Ambiente
-src/environments/environment.prod.ts
 
 ## OS
 .DS_Store
