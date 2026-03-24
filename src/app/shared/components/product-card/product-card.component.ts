@@ -12,7 +12,7 @@ import { ProductListItem } from '../../../core/models/product.model';
 
       <!-- Imagem com badge de estoque (estilo Tuning Shop) -->
       <div class="card-image-wrap">
-        <img [src]="product.imageUrl" [alt]="product.name" loading="lazy" />
+        <img [src]="product.imageUrl" [alt]="product.name" />
 
         <!-- Badge laranja (igual ao "Vendedor"/"Comprador" do site original) -->
         <span *ngIf="product.stock === 0"            class="ts-badge danger">SEM ESTOQUE</span>
