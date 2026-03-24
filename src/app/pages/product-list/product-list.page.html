@@ -1,42 +1,55 @@
-<!-- ── Header estilo Tuning Shop ─────────────────────────────────── -->
-<ion-header class="ion-no-border">
+<ion-header class="ion-no-border app-page-header">
 
-  <!-- Barra superior branca com logo + searchbar (espelho do site original) -->
   <ion-toolbar class="header-main">
-    <!-- Logo: "Ts Kids" com estilo da marca Tuning Shop -->
-    <div slot="start" class="logo-wrap">
-      <span class="logo-icon">✦</span>
-      <div class="logo-text">
-        <span class="logo-ts">TS</span><span class="logo-kids">KIDS</span>
-        <small class="logo-sub">MARKETPLACE</small>
+    <div class="header-toolbar-inner">
+      <div class="logo-wrap">
+        <span class="logo-icon">✦</span>
+        <div class="logo-text">
+          <span class="logo-ts">TS</span><span class="logo-kids">KIDS</span>
+          <small class="logo-sub">MARKETPLACE</small>
+        </div>
       </div>
+      <ion-searchbar
+        placeholder="Buscar carrinhos..."
+        (ionInput)="onSearch($event)"
+        debounce="400"
+        animated
+        class="search-bar"
+        show-clear-button="focus"
+      ></ion-searchbar>
     </div>
-
-    <!-- Searchbar central -->
-    <ion-searchbar
-      slot="end"
-      placeholder="Ferrari, Porsche, Lamborghini..."
-      (ionInput)="onSearch($event)"
-      debounce="400"
-      animated
-      class="search-bar"
-    ></ion-searchbar>
   </ion-toolbar>
 
-  <!-- Faixa de categorias com fundo laranja (estilo banner do site) -->
-  <div class="category-bar">
-    <button
-      class="cat-btn"
-      [class.active]="selectedCat === ''"
-      (click)="onCategoryChange('')"
-    >TODOS</button>
-    <button
-      *ngFor="let cat of categories()"
-      class="cat-btn"
-      [class.active]="selectedCat === cat.id"
-      (click)="onCategoryChange(cat.id)"
-    >{{ cat.name | uppercase }}</button>
-  </div>
+  <ion-toolbar class="category-toolbar category-toolbar--mobile">
+    <ion-buttons slot="start">
+      <ion-button
+        class="category-open-btn"
+        fill="clear"
+        (click)="openCategoryMenu()"
+        aria-label="Escolher categoria"
+      >
+        <ion-icon slot="start" name="menu-outline" aria-hidden="true"></ion-icon>
+        Categorias
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="category-current-title">{{ selectedCategoryTitle() }}</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar class="category-toolbar category-toolbar--desktop">
+    <div class="category-tabs">
+      <button
+        class="category-tab-btn"
+        [class.active]="!selectedCat"
+        (click)="selectCategory('')"
+      >TODOS</button>
+      <button
+        *ngFor="let cat of categories()"
+        class="category-tab-btn"
+        [class.active]="selectedCat === cat.id"
+        (click)="selectCategory(cat.id)"
+      >{{ cat.name | uppercase }}</button>
+    </div>
+  </ion-toolbar>
 
 </ion-header>
 
@@ -88,7 +101,7 @@
   </div>
 
   <!-- Infinite scroll -->
-  <ion-infinite-scroll [disabled]="!hasMore()" (ionInfinite)="loadMore($event)">
+  <ion-infinite-scroll *ngIf="hasMore()" (ionInfinite)="loadMore($event)">
     <ion-infinite-scroll-content
       loadingSpinner="bubbles"
       loadingText="Carregando mais..."

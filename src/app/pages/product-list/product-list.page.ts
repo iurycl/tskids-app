@@ -1,8 +1,11 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonicModule, InfiniteScrollCustomEvent, ToastController } from '@ionic/angular';
+import { IonicModule, InfiniteScrollCustomEvent, ToastController, ActionSheetController } from '@ionic/angular';
+import type { ActionSheetButton } from '@ionic/angular';
+
+import { finalize } from 'rxjs/operators';
 
 import { ProductService } from '../../core/services/product.service';
 import { CategoryService } from '../../core/services/category.service';
@@ -21,7 +24,9 @@ export class ProductListPage implements OnInit {
   private productSvc  = inject(ProductService);
   private categorySvc = inject(CategoryService);
   private router      = inject(Router);
-  private toastCtrl   = inject(ToastController);
+  private toastCtrl       = inject(ToastController);
+  private actionSheetCtrl = inject(ActionSheetController);
+  private cdr             = inject(ChangeDetectorRef);
 
   products   = signal<ProductListItem[]>([]);
   categories = signal<Category[]>([]);
@@ -32,6 +37,7 @@ export class ProductListPage implements OnInit {
   selectedCat   = '';
   currentPage   = 1;
   readonly PAGE_SIZE = 20;
+  readonly allCategoriesValue = '__all__';
 
   ngOnInit(): void {
     this.loadCategories();
@@ -58,14 +64,14 @@ export class ProductListPage implements OnInit {
       pageSize: this.PAGE_SIZE,
       categoryId: this.selectedCat || null,
       search: this.searchTerm || null,
-    }).subscribe({
+    }).pipe(finalize(() => this.isLoading.set(false))).subscribe({
       next: result => {
-        this.products.update(prev => [...prev, ...result.data]);
-        this.hasMore.set(this.currentPage < result.totalPages);
-        this.isLoading.set(false);
+        const items = Array.isArray(result?.data) ? result.data : [];
+        const totalPages = typeof result?.totalPages === 'number' ? result.totalPages : 1;
+        this.products.update(prev => [...prev, ...items]);
+        this.hasMore.set(this.currentPage < totalPages);
       },
       error: async () => {
-        this.isLoading.set(false);
         const toast = await this.toastCtrl.create({
           message: 'Erro ao carregar produtos. Tente novamente.',
           duration: 3000,
@@ -82,8 +88,39 @@ export class ProductListPage implements OnInit {
     this.loadProducts(true);
   }
 
-  onCategoryChange(catId: string): void {
-    this.selectedCat = catId === this.selectedCat ? '' : catId;
+  selectedCategoryTitle(): string {
+    if (!this.selectedCat) return 'TODOS';
+    const c = this.categories().find(x => x.id === this.selectedCat);
+    return (c?.name ?? 'TODOS').toUpperCase();
+  }
+
+  async openCategoryMenu(): Promise<void> {
+    const cats = this.categories();
+    const buttons: ActionSheetButton[] = [
+      {
+        text: 'TODOS',
+        cssClass: this.selectedCat === '' ? 'category-sheet-option-selected' : undefined,
+        handler: () => this.selectCategory('')
+      },
+      ...cats.map(c => ({
+        text: c.name.toUpperCase(),
+        cssClass: this.selectedCat === c.id ? 'category-sheet-option-selected' : undefined,
+        handler: () => this.selectCategory(c.id)
+      })),
+      { text: 'Fechar', role: 'cancel' }
+    ];
+    const sheet = await this.actionSheetCtrl.create({
+      header: 'Categorias',
+      cssClass: 'category-action-sheet',
+      buttons
+    });
+    await sheet.present();
+  }
+
+selectCategory(id: string): void {
+    if (id === this.selectedCat) return;
+    this.selectedCat = id;
+    this.cdr.detectChanges();
     this.loadProducts(true);
   }
 
@@ -96,16 +133,18 @@ export class ProductListPage implements OnInit {
       search: this.searchTerm || null,
     }).subscribe({
       next: result => {
-        this.products.update(prev => [...prev, ...result.data]);
-        this.hasMore.set(this.currentPage < result.totalPages);
+        const items = Array.isArray(result?.data) ? result.data : [];
+        const totalPages = typeof result?.totalPages === 'number' ? result.totalPages : 1;
+        this.products.update(prev => [...prev, ...items]);
+        this.hasMore.set(this.currentPage < totalPages);
         event.target.complete();
       },
       error: () => event.target.complete()
     });
   }
 
-  trackById(_index: number, item: ProductListItem): string {
-    return item.id;
+  trackById(index: number, item: ProductListItem): string {
+    return item.id ?? `idx-${index}`;
   }
 
   goToProduct(id: string): void {

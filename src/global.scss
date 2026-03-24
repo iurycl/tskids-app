@@ -4,8 +4,18 @@
 
 * { box-sizing: border-box; }
 
+html,
+body {
+  height: 100%;
+}
+
+ion-app {
+  height: 100%;
+}
+
 // ── Base ──────────────────────────────────────────────────────────
 body {
+  overflow-x: clip;
   font-family: 'Barlow', system-ui, sans-serif;
   color: var(--ts-dark);
   background-color: var(--ts-bg);
@@ -46,6 +56,11 @@ ion-toolbar {
 // ── Searchbar ─────────────────────────────────────────────────────
 ion-searchbar {
   --border-radius: 4px;
+}
+
+ion-action-sheet.category-action-sheet .action-sheet-button.category-sheet-option-selected {
+  font-weight: 800;
+  color: var(--ts-primary);
 }
 
 // ── Títulos uppercase (estilo do banner "SELECIONE SEU CARRO") ────

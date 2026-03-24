@@ -1,128 +1,346 @@
-// ── Header principal (barra branca, espelho do Tuning Shop) ──────
 .header-main {
   --background: #ffffff;
   --color: var(--ts-dark);
+  --min-height: auto;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+  --padding-start: 12px;
+  --padding-end: 12px;
   border-bottom: 2px solid var(--ts-primary);
-  padding: 8px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-  .logo-wrap {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 0;
+.header-toolbar-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  width: 100%;
+}
 
-    .logo-icon {
-      font-size: 22px;
-      color: var(--ts-primary);
-      line-height: 1;
-    }
+.header-main .logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 0;
+  flex-shrink: 0;
 
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1;
-
-      .logo-ts   { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800; color: var(--ts-dark);    letter-spacing: -0.5px; }
-      .logo-kids { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800; color: var(--ts-primary); letter-spacing: -0.5px; }
-      .logo-sub  { font-size: 9px; font-weight: 600; color: var(--ts-grey); letter-spacing: 2px; text-transform: uppercase; margin-top: 1px; }
-    }
+  .logo-icon {
+    font-size: 20px;
+    color: var(--ts-primary);
+    line-height: 1;
   }
 
-  .search-bar {
-    --background: #f0f0f0;
-    --color: var(--ts-dark);
-    --placeholder-color: #999;
-    --icon-color: var(--ts-grey);
-    --border-radius: 4px;
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+
+    .logo-ts {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--ts-dark);
+      letter-spacing: -0.5px;
+    }
+
+    .logo-kids {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--ts-primary);
+      letter-spacing: -0.5px;
+    }
+
+    .logo-sub {
+      font-size: 8px;
+      font-weight: 600;
+      color: var(--ts-grey);
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+  }
+}
+
+.header-main .search-bar {
+  --background: #f0f0f0;
+  --color: var(--ts-dark);
+  --placeholder-color: #999;
+  --icon-color: var(--ts-grey);
+  --border-radius: 4px;
+  width: 100%;
+  max-width: none;
+  padding: 0;
+  font-size: 15px;
+  min-height: 44px;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+:host ion-header.app-page-header {
+  flex-shrink: 0;
+}
+
+.category-toolbar {
+  --background: var(--ts-dark);
+  --border-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.category-toolbar--mobile {
+  --min-height: 52px;
+  --padding-top: 6px;
+  --padding-bottom: 6px;
+  --padding-start: 4px;
+  --padding-end: 8px;
+
+  @media (min-width: 850px) {
+    display: none !important;
+  }
+}
+
+.category-toolbar--desktop {
+  --min-height: 48px;
+  --padding-top: 4px;
+  --padding-bottom: 4px;
+  --padding-start: 0;
+  --padding-end: 0;
+  display: none !important;
+
+  @media (min-width: 850px) {
+    display: block !important;
+  }
+}
+
+.category-tabs {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  height: 48px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+.category-tab-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: 'Barlow Condensed', 'Barlow', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.45px;
+  text-transform: uppercase;
+  padding: 0 14px;
+  height: 100%;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  &.active {
+    color: #ffffff;
+    border-bottom-color: var(--ts-primary);
+  }
+}
+
+.category-open-btn {
+  --color: #ffffff;
+  --padding-start: 8px;
+  --padding-end: 10px;
+  margin: 0;
+  font-family: 'Barlow Condensed', 'Barlow', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.55px;
+  text-transform: uppercase;
+}
+
+.category-open-btn ion-icon {
+  font-size: 22px;
+  margin-right: 4px;
+}
+
+.category-current-title {
+  color: rgba(255, 255, 255, 0.92);
+  font-family: 'Barlow Condensed', 'Barlow', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  padding-inline: 6px;
+  pointer-events: none;
+}
+
+@media (min-width: 850px) {
+  .header-main {
+    --padding-start: 16px;
+    --padding-end: 16px;
+  }
+
+  .header-toolbar-inner {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .header-main .logo-wrap .logo-icon {
+    font-size: 22px;
+  }
+
+  .header-main .logo-wrap .logo-text .logo-ts,
+  .header-main .logo-wrap .logo-text .logo-kids {
+    font-size: 22px;
+  }
+
+  .header-main .logo-wrap .logo-text .logo-sub {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  .header-main .search-bar {
+    flex: 1;
     max-width: 480px;
-    padding: 0;
+    margin-left: auto;
     font-size: 14px;
   }
 }
 
-// ── Barra de categorias escura (menu inferior do header) ─────────
-.category-bar {
-  display: flex;
-  overflow-x: auto;
-  gap: 0;
-  background: var(--ts-dark);
-  padding: 0 8px;
-  scrollbar-width: none;
-  &::-webkit-scrollbar { display: none; }
-
-  .cat-btn {
-    flex-shrink: 0;
-    background: transparent;
-    border: none;
-    color: rgba(255,255,255,0.75);
-    font-family: 'Barlow Condensed', 'Barlow', sans-serif;
+@media (min-width: 768px) {
+  .category-open-btn {
     font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    padding: 10px 14px;
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: color 0.15s, border-color 0.15s;
-    white-space: nowrap;
+    letter-spacing: 0.65px;
+  }
 
-    &:hover { color: #fff; }
+  .category-current-title {
+    font-size: 12px;
+  }
 
-    &.active {
-      color: var(--ts-primary);
-      border-bottom-color: var(--ts-primary);
-    }
+  .category-toolbar--desktop .category-seg-btn {
+    font-size: 12px;
+    letter-spacing: 0.65px;
+    --padding-start: 14px;
+    --padding-end: 14px;
   }
 }
 
-// ── Hero banner (estilo "Bem-vindo" do site original) ─────────────
 .hero-banner {
   background: linear-gradient(135deg, #1a1a1a 60%, #2d2d2d 100%);
-  padding: 28px 24px;
+  padding: 20px 16px;
   display: flex;
-  align-items: center;
-  gap: 20px;
-  min-height: 100px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: auto;
 
   .hero-badge {
     background: var(--ts-primary);
     color: #fff;
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 800;
-    letter-spacing: 1px;
-    padding: 6px 16px;
+    letter-spacing: 0.8px;
+    padding: 6px 12px;
     border-radius: 4px;
     flex-shrink: 0;
     text-transform: uppercase;
   }
 
   .hero-text {
-    p      { margin: 0; color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500; letter-spacing: 0.5px; }
-    strong { display: block; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; line-height: 1.1; }
+    p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+    }
+
+    strong {
+      display: block;
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      line-height: 1.15;
+    }
   }
 }
 
-// ── Título da seção (igual ao "SELECIONE SEU CARRO") ─────────────
+@media (min-width: 768px) {
+  .hero-banner {
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    padding: 28px 24px;
+    min-height: 100px;
+
+    .hero-badge {
+      font-size: 18px;
+      letter-spacing: 1px;
+      padding: 6px 16px;
+    }
+
+    .hero-text {
+      p {
+        font-size: 14px;
+        letter-spacing: 0.5px;
+      }
+
+      strong {
+        font-size: 26px;
+        letter-spacing: 1px;
+        line-height: 1.1;
+      }
+    }
+  }
+}
+
 .section-header {
   background: #fff;
   border-bottom: 1px solid var(--ts-border);
-  padding: 16px 20px 12px;
+  padding: 12px 16px 10px;
 
   h2 {
     margin: 0;
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 800;
     color: var(--ts-primary);
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
+    line-height: 1.25;
+  }
+}
+
+@media (min-width: 768px) {
+  .section-header {
+    padding: 16px 20px 12px;
+
+    h2 {
+      font-size: 20px;
+      letter-spacing: 1px;
+    }
   }
 }
 
 // ── Content ───────────────────────────────────────────────────────
 ion-content.page-content {
   --background: var(--ts-bg);
+  flex: 1;
+  min-height: 0;
 }
 
 // ── Product grid ──────────────────────────────────────────────────

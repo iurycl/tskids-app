@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ProductListItem } from '../../../core/models/product.model';
@@ -12,7 +12,13 @@ import { ProductListItem } from '../../../core/models/product.model';
 
       <!-- Imagem com badge de estoque (estilo Tuning Shop) -->
       <div class="card-image-wrap">
-        <img [src]="product.imageUrl" [alt]="product.name" />
+        <img
+          [src]="imgSrc"
+          [alt]="product.name"
+          loading="eager"
+          decoding="async"
+          (error)="onImageError()"
+        />
 
         <!-- Badge laranja (igual ao "Vendedor"/"Comprador" do site original) -->
         <span *ngIf="product.stock === 0"            class="ts-badge danger">SEM ESTOQUE</span>
@@ -159,7 +165,22 @@ import { ProductListItem } from '../../../core/models/product.model';
     }
   `]
 })
-export class ProductCardComponent {
+export class ProductCardComponent implements OnChanges {
   @Input({ required: true }) product!: ProductListItem;
   @Output() cardClick = new EventEmitter<string>();
+
+  private readonly fallbackImage =
+    'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect width="100%" height="100%" fill="%23f2f2f2"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23999" font-family="Arial" font-size="18">Imagem indisponivel</text></svg>';
+  imgSrc = '';
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const current = changes['product']?.currentValue as ProductListItem | undefined;
+    if (!current) return;
+    const targetUrl = current.imageUrl?.trim();
+    this.imgSrc = targetUrl || this.fallbackImage;
+  }
+
+  onImageError(): void {
+    this.imgSrc = this.fallbackImage;
+  }
 }
