@@ -104,6 +104,10 @@ export class ProductListPage implements OnInit {
     });
   }
 
+  trackById(_index: number, item: ProductListItem): string {
+    return item.id;
+  }
+
   goToProduct(id: string): void {
     this.router.navigate(['/product', id]);
   }

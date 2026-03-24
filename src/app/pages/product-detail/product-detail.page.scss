@@ -186,3 +186,9 @@ ion-divider { margin: 16px 0; }
     color: var(--ts-dark);
   }
 }
+
+hr.ts-divider {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 20px 0;
+}
