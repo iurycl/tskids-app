@@ -1,7 +1,7 @@
 {
-  "buildCommand": "npm run build -- --configuration production",
   "outputDirectory": "www",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
