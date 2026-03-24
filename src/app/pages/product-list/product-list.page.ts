@@ -89,6 +89,16 @@ export class ProductListPage implements OnInit {
     this.loadProducts(true);
   }
 
+  private searchDebounce: ReturnType<typeof setTimeout> | null = null;
+  onSearchInput(event: Event): void {
+    const value = (event.target as HTMLInputElement).value ?? '';
+    if (this.searchDebounce) clearTimeout(this.searchDebounce);
+    this.searchDebounce = setTimeout(() => {
+      this.searchTerm = value;
+      this.loadProducts(true);
+    }, 400);
+  }
+
   selectedCategoryTitle(): string {
     if (!this.selectedCat) return 'TODOS';
     const c = this.categories().find(x => x.id === this.selectedCat);

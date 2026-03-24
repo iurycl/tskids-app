@@ -9,14 +9,15 @@
           <small class="logo-sub">MARKETPLACE</small>
         </div>
       </div>
-      <ion-searchbar
-        placeholder="Buscar carrinhos..."
-        (ionInput)="onSearch($event)"
-        debounce="400"
-        animated
-        class="search-bar"
-        show-clear-button="focus"
-      ></ion-searchbar>
+      <div class="search-wrap">
+        <ion-icon name="search-outline" class="search-icon"></ion-icon>
+        <input
+          type="search"
+          class="search-bar"
+          placeholder="Buscar carrinhos..."
+          (input)="onSearchInput($event)"
+        />
+      </div>
     </div>
   </ion-toolbar>
 
