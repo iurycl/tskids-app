@@ -106,17 +106,16 @@
 }
 
 .category-toolbar {
-  --border-width: 0;
+  background: #1A1A1A;
   width: 100%;
   box-sizing: border-box;
 }
 
 .category-toolbar--mobile {
-  --min-height: 52px;
-  --padding-top: 6px;
-  --padding-bottom: 6px;
-  --padding-start: 4px;
-  --padding-end: 8px;
+  display: flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 8px;
 
   @media (min-width: 850px) {
     display: none !important;
@@ -124,11 +123,6 @@
 }
 
 .category-toolbar--desktop {
-  --min-height: 48px;
-  --padding-top: 4px;
-  --padding-bottom: 4px;
-  --padding-start: 0;
-  --padding-end: 0;
   display: none !important;
 
   @media (min-width: 850px) {
@@ -173,20 +167,23 @@
 }
 
 .category-open-btn {
-  --color: #ffffff;
-  --padding-start: 8px;
-  --padding-end: 10px;
-  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
   font-family: 'Barlow Condensed', 'Barlow', sans-serif;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.55px;
   text-transform: uppercase;
-}
+  padding: 8px 10px 8px 8px;
+  cursor: pointer;
 
-.category-open-btn ion-icon {
-  font-size: 22px;
-  margin-right: 4px;
+  ion-icon {
+    font-size: 22px;
+  }
 }
 
 .category-current-title {
@@ -405,4 +402,75 @@ ion-content.page-content {
   }
 
   p { font-size: 14px; text-align: center; margin: 0; }
+}
+
+// ── Category bottom sheet ──────────────────────────────────────────
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1000;
+}
+
+.sheet-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 16px 16px 0 0;
+  z-index: 1001;
+  transform: translateY(100%);
+  transition: transform 0.28s ease;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+
+  &.sheet-open {
+    transform: translateY(0);
+  }
+}
+
+.sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid #eee;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #1A1A1A;
+}
+
+.sheet-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #999;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.sheet-item {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 16px 20px;
+  text-align: left;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: #333;
+  cursor: pointer;
+
+  &:active { background: #f5f5f5; }
+
+  &--active {
+    color: #FF5500;
+    font-weight: 800;
+  }
 }

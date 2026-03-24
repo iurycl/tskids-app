@@ -21,22 +21,15 @@
     </div>
   </ion-toolbar>
 
-  <ion-toolbar class="category-toolbar category-toolbar--mobile" style="--background: #1A1A1A;">
-    <ion-buttons slot="start">
-      <ion-button
-        class="category-open-btn"
-        fill="clear"
-        (click)="openCategoryMenu()"
-        aria-label="Escolher categoria"
-      >
-        <ion-icon slot="start" name="menu-outline" aria-hidden="true"></ion-icon>
-        Categorias
-      </ion-button>
-    </ion-buttons>
-    <ion-title class="category-current-title">{{ selectedCategoryTitle() }}</ion-title>
-  </ion-toolbar>
+  <div class="category-toolbar category-toolbar--mobile" style="background: #1A1A1A;">
+    <button class="category-open-btn" (click)="openCategoryMenu()" aria-label="Escolher categoria">
+      <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+      Categorias --
+    </button>
+    <span class="category-current-title">{{ selectedCategoryTitle() }}</span>
+  </div>
 
-  <ion-toolbar class="category-toolbar category-toolbar--desktop" style="--background: #1A1A1A;">
+  <ion-toolbar class="category-toolbar category-toolbar--desktop" style="background: #1A1A1A;">
     <div class="category-tabs">
       <button
         class="category-tab-btn"
@@ -53,6 +46,22 @@
   </ion-toolbar>
 
 </ion-header>
+
+<!-- ── Category bottom sheet ────────────────────────────────────── -->
+<div class="sheet-backdrop" *ngIf="showCategorySheet" (click)="closeCategorySheet()"></div>
+<div class="sheet-panel" [class.sheet-open]="showCategorySheet">
+  <div class="sheet-header">
+    <span>Categorias</span>
+    <button class="sheet-close-btn" (click)="closeCategorySheet()">✕</button>
+  </div>
+  <button class="sheet-item" [class.sheet-item--active]="!selectedCat" (click)="pickCategory('')">TODOS</button>
+  <button
+    *ngFor="let cat of categories()"
+    class="sheet-item"
+    [class.sheet-item--active]="selectedCat === cat.id"
+    (click)="pickCategory(cat.id)"
+  >{{ cat.name | uppercase }}</button>
+</div>
 
 <!-- ── Content ──────────────────────────────────────────────────── -->
 <ion-content class="page-content">

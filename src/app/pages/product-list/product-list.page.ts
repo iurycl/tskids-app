@@ -2,8 +2,7 @@ import { Component, OnInit, inject, signal, ChangeDetectorRef } from '@angular/c
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonicModule, InfiniteScrollCustomEvent, ToastController, ActionSheetController, NavController } from '@ionic/angular';
-import type { ActionSheetButton } from '@ionic/angular';
+import { IonicModule, InfiniteScrollCustomEvent, ToastController } from '@ionic/angular';
 
 import { finalize } from 'rxjs/operators';
 
@@ -24,10 +23,10 @@ export class ProductListPage implements OnInit {
   private productSvc  = inject(ProductService);
   private categorySvc = inject(CategoryService);
   private router      = inject(Router);
-  private navCtrl         = inject(NavController);
-  private toastCtrl       = inject(ToastController);
-  private actionSheetCtrl = inject(ActionSheetController);
-  private cdr             = inject(ChangeDetectorRef);
+  private toastCtrl = inject(ToastController);
+  private cdr       = inject(ChangeDetectorRef);
+
+  showCategorySheet = false;
 
   products   = signal<ProductListItem[]>([]);
   categories = signal<Category[]>([]);
@@ -38,7 +37,6 @@ export class ProductListPage implements OnInit {
   selectedCat   = '';
   currentPage   = 1;
   readonly PAGE_SIZE = 20;
-  readonly allCategoriesValue = '__all__';
 
   ngOnInit(): void {
     this.loadCategories();
@@ -84,11 +82,6 @@ export class ProductListPage implements OnInit {
     });
   }
 
-  onSearch(event: CustomEvent): void {
-    this.searchTerm = event.detail.value ?? '';
-    this.loadProducts(true);
-  }
-
   private searchDebounce: ReturnType<typeof setTimeout> | null = null;
   onSearchInput(event: Event): void {
     const value = (event.target as HTMLInputElement).value ?? '';
@@ -105,30 +98,20 @@ export class ProductListPage implements OnInit {
     return (c?.name ?? 'TODOS').toUpperCase();
   }
 
-  async openCategoryMenu(): Promise<void> {
-    const cats = this.categories();
-    const buttons: ActionSheetButton[] = [
-      {
-        text: 'TODOS',
-        cssClass: this.selectedCat === '' ? 'category-sheet-option-selected' : undefined,
-        handler: () => this.selectCategory('')
-      },
-      ...cats.map(c => ({
-        text: c.name.toUpperCase(),
-        cssClass: this.selectedCat === c.id ? 'category-sheet-option-selected' : undefined,
-        handler: () => this.selectCategory(c.id)
-      })),
-      { text: 'Fechar', role: 'cancel' }
-    ];
-    const sheet = await this.actionSheetCtrl.create({
-      header: 'Categorias',
-      cssClass: 'category-action-sheet',
-      buttons
-    });
-    await sheet.present();
+  openCategoryMenu(): void {
+    this.showCategorySheet = true;
   }
 
-selectCategory(id: string): void {
+  closeCategorySheet(): void {
+    this.showCategorySheet = false;
+  }
+
+  pickCategory(id: string): void {
+    this.closeCategorySheet();
+    this.selectCategory(id);
+  }
+
+  selectCategory(id: string): void {
     if (id === this.selectedCat) return;
     this.selectedCat = id;
     this.cdr.detectChanges();

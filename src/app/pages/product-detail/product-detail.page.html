@@ -1,7 +1,10 @@
 <ion-header class="ion-no-border" translucent>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/" text="Voltar" color="light"></ion-back-button>
+      <button class="back-btn" (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        Voltar
+      </button>
     </ion-buttons>
     <ion-title color="light">Detalhes do Produto</ion-title>
   </ion-toolbar>

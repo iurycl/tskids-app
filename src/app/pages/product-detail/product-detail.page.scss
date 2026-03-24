@@ -1,7 +1,27 @@
 ion-toolbar {
-  --background: #1A1A1A;   // preto charcoal (igual header do site)
+  --background: #1A1A1A;
   --color: #fff;
+  background: #1A1A1A;
   border-bottom: 2px solid var(--ts-primary);
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  padding: 8px 12px;
+  cursor: pointer;
+
+  ion-icon {
+    font-size: 18px;
+  }
 }
 
 ion-content {

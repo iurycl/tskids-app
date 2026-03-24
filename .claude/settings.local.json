@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:tskids-app.vercel.app)"
+      "WebFetch(domain:tskids-app.vercel.app)",
+      "Bash(grep -r \"addIcons\\\\|from ''ionicons''\" d:/projetos/tskids-app/src --include=\"*.ts\" -l)"
     ]
   }
 }
