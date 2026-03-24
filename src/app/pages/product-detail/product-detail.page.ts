@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonicModule, ToastController } from '@ionic/angular';
+import { IonicModule, ToastController, NavController } from '@ionic/angular';
 
 import { ProductService } from '../../core/services/product.service';
 import { Product } from '../../core/models/product.model';
@@ -16,6 +16,7 @@ import { Product } from '../../core/models/product.model';
 export class ProductDetailPage implements OnInit {
   private route      = inject(ActivatedRoute);
   private router     = inject(Router);
+  private navCtrl    = inject(NavController);
   private productSvc = inject(ProductService);
   private toastCtrl  = inject(ToastController);
 
@@ -53,7 +54,7 @@ export class ProductDetailPage implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['/home']);
   }
 
   get stockLabel(): string {

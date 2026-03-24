@@ -2,7 +2,7 @@ import { Component, OnInit, inject, signal, ChangeDetectorRef } from '@angular/c
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonicModule, InfiniteScrollCustomEvent, ToastController, ActionSheetController } from '@ionic/angular';
+import { IonicModule, InfiniteScrollCustomEvent, ToastController, ActionSheetController, NavController } from '@ionic/angular';
 import type { ActionSheetButton } from '@ionic/angular';
 
 import { finalize } from 'rxjs/operators';
@@ -24,6 +24,7 @@ export class ProductListPage implements OnInit {
   private productSvc  = inject(ProductService);
   private categorySvc = inject(CategoryService);
   private router      = inject(Router);
+  private navCtrl         = inject(NavController);
   private toastCtrl       = inject(ToastController);
   private actionSheetCtrl = inject(ActionSheetController);
   private cdr             = inject(ChangeDetectorRef);
